@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TinyLink — Dashboard</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div>
+        <h1 class="brand">TinyLink</h1>
+        <p class="muted">Shorten URLs — manage links & view stats</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Create Short Link</h2>
+      <form id="createForm" novalidate>
+        <label for="target">Long URL (required)</label>
+        <input id="target" name="target" type="url" placeholder="https://example.com/very/long/path" required />
+
+        <label for="customCode">Custom Code (optional, 6–8 alnum)</label>
+        <input id="customCode" name="customCode" type="text" placeholder="e.g. docs123" />
+
+        <div class="form-row">
+          <button id="submitBtn" type="submit">Create</button>
+       
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <h2>Your Links</h2>
+        <div class="right-controls">
+          <input id="search" placeholder="Search by code or URL" aria-label="Search links" />
+          <button id="healthBtn" class="secondary-btn" title="Check server health">Check Health</button>
+        </div>
+      </div>
+
+      <div id="tableWrap">
+        <table id="linksTable">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Short URL</th>
+              <th>Clicks</th>
+              <th>Last Clicked</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="linksBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">Built for TinyLink assignment</div>
+  </footer>
+
+  <!-- Stats Modal -->
+  <div id="statsModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" style="display:none;">
+    <div class="modal-backdrop" data-modal-backdrop></div>
+    <div class="modal-content" role="document" tabindex="-1">
+      <button id="closeModal" class="modal-close" aria-label="Close">✕</button>
+      <h3>Link Stats — <span id="modalCode">—</span></h3>
+
+      <p><strong>Short URL:</strong><br>
+        <a id="modalShortUrl" href="#" target="_blank" rel="noopener noreferrer"></a>
+      </p>
+
+      <p><strong>Original URL:</strong><br>
+        <span id="modalTarget" style="word-break: break-all;"></span>
+      </p>
+
+      <p><strong>Clicks:</strong> <span id="modalClicks">-</span></p>
+      <p><strong>Last clicked:</strong> <span id="modalLast">-</span></p>
+      <p><strong>Created:</strong> <span id="modalCreated">-</span></p>
+    </div>
+  </div>
+
+  <!-- Confirm Modal -->
+  <div id="confirmModal" class="confirm-modal" role="dialog" aria-modal="true" aria-hidden="true" style="display:none;">
+    <div class="confirm-backdrop"></div>
+    <div class="confirm-box" role="document" aria-labelledby="confirmTitle" tabindex="-1">
+      <button id="confirmClose" class="confirm-close" aria-label="Close confirm">✕</button>
+      <h3 id="confirmTitle">Notice</h3>
+      <p id="confirmMessage"></p>
+      <div class="confirm-actions">
+        <button id="confirmOk">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" aria-live="polite" style="display:none;"></div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
